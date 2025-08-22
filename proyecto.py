@@ -50,30 +50,26 @@ def cargar_jugador(jugadores):
     nombre = input("Elige jugador: ")
     return jugadores.get(nombre)
 
-# -------------------------
-# Aventura con 3 decisiones
-# -------------------------
 def aventura(jugador):
-    print(Style.BRIGHT + "\nTu aventura comienza en una aldea misteriosa...")
-    print("Te acercas a una bifurcación en el bosque.")
+    print(Style.BRIGHT + "\nTu aventura comienza en la aldea de Eldoria, un lugar lleno de misterios y leyendas...")
+    print("Los aldeanos murmuran sobre una antigua profecía que habla de un héroe que salvará el reino de una gran oscuridad.")
+    print("Te acercas a una bifurcación en el bosque, donde se dice que los espíritus de los ancestros guían a los valientes.")
 
-    # DECISIÓN 1
     decision1 = ""
     while decision1 not in ["A", "B"]:
-        decision1 = input("A) Ir por el camino oscuro\nB) Tomar el sendero iluminado\n> ").upper()
+        decision1 = input("A) Ir por el camino oscuro, donde se dice que habita un dragón.\nB) Tomar el sendero iluminado, que lleva a la Torre del Mago.\n> ").upper()
         if decision1 not in ["A", "B"]:
             print(Fore.RED + "¡Opción inválida! Elige A o B.")
 
     if decision1 == "A":
-        print("Te adentras en la oscuridad... ¡Felipe Salvaje Homosexual aparece!")
+        print("Te adentras en la oscuridad... ¡Felipe Salvaje Homosexual aparece, un temido guardián del dragón!")
         combate(jugador, {"nombre": "Felipe Salvaje Homosexual", "vida": 10, "ataque": 3})
     else:
         print("El sendero iluminado parece tranquilo... pero escuchas pasos pesados.")
-        print("¡Es un Brandosaurio!")
+        print("¡Es un Brandosaurio, un antiguo protector de la Torre del Mago!")
         combate(jugador, {"nombre": "Brandosaurio", "vida": 12, "ataque": 4})
 
-    # DECISIÓN 2
-    print("\nTras el combate, encuentras la entrada a una cueva misteriosa.")
+    print("\nTras el combate, encuentras la entrada a una cueva misteriosa, donde se dice que los ecos del pasado resuenan.")
     decision2 = ""
     while decision2 not in ["C", "S"]:
         decision2 = input("¿Quieres entrar en la cueva (C) o seguir el camino (S)? ").upper()
@@ -81,15 +77,14 @@ def aventura(jugador):
             print(Fore.RED + "¡Opción inválida! Elige C o S.")
 
     if decision2 == "C":
-        print("Entras en la cueva... y un murciélago gigante desciende del techo.")
+        print("Entras en la cueva... y un murciélago gigante desciende del techo, custodiando un antiguo secreto.")
         combate(jugador, {"nombre": "Murciélago Gigante", "vida": 14, "ataque": 5})
     else:
         print("Sigues el camino y disfrutas de un momento de calma... recuperas un poco de energía.")
         jugador["vida"] += 5
         print(Fore.GREEN + f"Tu vida aumenta a {jugador['vida']}.")
 
-    # DECISIÓN 3
-    print("\nMás adelante, encuentras un cofre antiguo en medio del sendero.")
+    print("\nMás adelante, encuentras un cofre antiguo en medio del sendero, cubierto de runas mágicas.")
     decision3 = ""
     while decision3 not in ["A", "I"]:
         decision3 = input("¿Abrir el cofre (A) o ignorarlo (I)? ").upper()
@@ -97,21 +92,21 @@ def aventura(jugador):
             print(Fore.RED + "¡Opción inválida! Elige A o I.")
 
     if decision3 == "A":
-        suerte = random.choice(["tesoro", "trampa"])
-        if suerte == "tesoro":
-            print(Fore.YELLOW + "¡Encuentras una espada legendaria!")
-            jugador["inventario"]["espada legendaria"] = 1
+        suerte = random.choice(["scar", "espada", "trampa"])
+        if suerte == "scar":
+            print(Fore.YELLOW + "¡Increíble! Encuentras una Scar Dorada 🔫, un arma de leyenda.")
+            jugador["inventario"]["Scar Dorada"] = 1
+        elif suerte == "espada":
+            print(Fore.YELLOW + "¡Encuentras una Espada Legendaria, forjada en el fuego de los dioses!")
+            jugador["inventario"]["Espada Legendaria"] = 1
         else:
             print(Fore.RED + "¡Era una trampa! El cofre explota y pierdes 8 de vida.")
             jugador["vida"] -= 8
     else:
-        print("Decides no arriesgarte y dejas el cofre atrás.")
+        print("Decides no arriesgarte y dejas el cofre atrás, sintiendo que el verdadero tesoro está en la aventura misma.")
 
-    print(Fore.CYAN + "\nTu aventura por hoy termina. ¡Buen trabajo!")
+    print(Fore.CYAN + "\nTu aventura por hoy termina. ¡Buen trabajo, valiente héroe! El reino de Eldoria te necesita.")
 
-# -------------------------
-# Combate
-# -------------------------
 def combate(jugador, enemigo):
     print(Fore.RED + f"\nCombate: ¡Un {enemigo['nombre']} te ataca!")
     vida_jugador = jugador["vida"]
@@ -145,15 +140,12 @@ def combate(jugador, enemigo):
     jugador["vida"] = max(vida_jugador, 0)  # actualizar vida real
 
     if vida_jugador > 0:
-        print(Fore.YELLOW + f"\n¡Has derrotado al {enemigo['nombre']}!")
+        print(Fore.YELLOW + f"\n¡Has derrotado al {enemigo['nombre']}! Tu valentía es admirable.")
         jugador["nivel"] += 1
-        print(Fore.MAGENTA + f"¡Subes a nivel {jugador['nivel']}!")
+        print(Fore.MAGENTA + f"¡Subes a nivel {jugador['nivel']}! Tu leyenda crece.")
     else:
-        print(Fore.RED + "\nHas sido derrotado...")
+        print(Fore.RED + "\nHas sido derrotado... pero tu espíritu de lucha será recordado.")
 
-# -------------------------
-# Menú principal
-# -------------------------
 def main():
     jugadores = cargar_jugadores()
     print("Bienvenido al mundo de PyRPG")
